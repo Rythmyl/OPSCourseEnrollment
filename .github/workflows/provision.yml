@@ -15,7 +15,7 @@ jobs:
     steps:
       - name: Checkout Enrollment Repository
         # We must clone our own repo first to read and edit the pg2Info.txt file
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           token: ${{ secrets.ORG_ADMIN_TOKEN }}
           
