@@ -90,6 +90,14 @@ jobs:
           gh issue close $ISSUE_NUMBER --repo "$GITHUB_REPOSITORY" --reason "not planned"
           exit 2
 
+      - name: Notify Student of Verification Success
+        if: env.AUTH_FAILED == 'false'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          gh issue comment $ISSUE_NUMBER --repo "$GITHUB_REPOSITORY" --body "✅ Verification passed. Creating repos (be patient, this will take a few minutes)"
+
       - name: Provision All Lab Repositories
         if: env.AUTH_FAILED == 'false'
         shell: bash
@@ -187,7 +195,9 @@ jobs:
             --repo "$GITHUB_REPOSITORY" \
             --body "@${STUDENT_GITHUB_LOGIN}, your private lab repositories have been configured:
 
-          ${PROVISION_SUMMARY}"
+          ${PROVISION_SUMMARY}
+          
+          **IMPORTANT**: This message will auto delete in 30 minutes. Please back this up for your records."
           gh issue close $ISSUE_NUMBER \
             --repo "$GITHUB_REPOSITORY" \
             --reason "completed"
