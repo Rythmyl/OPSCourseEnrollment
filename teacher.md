@@ -67,6 +67,22 @@ gh repo list FullSailGameStudies --topic ops-student --topic not-graded --json n
 
 > **Note:** `gh repo list` requires the `repo` scope. Authenticate with `gh auth login` if you haven't already.
 
+## Cloning student repositories
+
+Repositories are named with the pattern `OPS_<MONTH>_Lab<N>_<username>` (e.g. `OPS_JUN_Lab3_jdoe`). To clone all repos for a given month, filter the `gh repo list` output by the month prefix and clone each match:
+
+```bash
+# Preview repos that will be cloned (dry run)
+gh repo list FullSailGameStudies --topic ops-student --topic not-graded --json name,url --jq '.[] | "\(.name)\t\(.url)"' | grep '^OPS_JUN_Lab'
+
+# Clone all OPS_JUN_Lab* repos into the current directory
+gh repo list FullSailGameStudies --topic ops-student --topic not-graded --json name,url --jq '.[] | "\(.name)\t\(.url)"' | grep '^OPS_JUN_Lab' | awk '{print $2}' | xargs -I {} gh repo clone {} .
+```
+
+Replace `JUN` with the three-letter month abbreviation you want to clone (e.g. `JUL`, `AUG`, `SEP`).
+
+> **Tip:** If you need to clone into a specific folder, create it first and run the command from inside that folder. Each repo will be cloned into its own subdirectory named after the repo.
+
 ## Deleting student repositories
 
 Repositories are named with the pattern `OPS_<MONTH>_Lab<N>_<username>` (e.g. `OPS_JUN_Lab3_jdoe`). To delete all repos for a given month, filter by the `ops-student` topic and match the month prefix:
