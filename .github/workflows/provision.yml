@@ -115,7 +115,7 @@ jobs:
           SUMMARY=""
 
           for N in $LABS; do
-            TEMPLATE_REPO="FullSailGameStudies/OPS_Lab${N}"
+            TEMPLATE_REPO="OPS_Lab${N}"
             NEW_REPO_NAME="OPS_${MONTH_ABBREV}_Lab${N}_${STUDENT_EMAIL_USERNAME}"
 
             # Skip creation if the student already has this repo
@@ -129,7 +129,7 @@ jobs:
             gh api \
               --method POST \
               -H "Accept: application/vnd.github+json" \
-              /repos/$TEMPLATE_REPO/generate \
+              /repos/FullSailGameStudies/$TEMPLATE_REPO/generate \
               -f owner="$ORG" \
               -f name="$NEW_REPO_NAME" \
               -F private=true
