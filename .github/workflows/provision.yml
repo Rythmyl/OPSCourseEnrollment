@@ -115,7 +115,7 @@ jobs:
           SUMMARY=""
 
           for N in $LABS; do
-            TEMPLATE_REPO="OPS_Lab${N}"
+            TEMPLATE_REPO="FullSailGameStudies/OPS_Lab${N}"
             NEW_REPO_NAME="OPS_${MONTH_ABBREV}_Lab${N}_${STUDENT_EMAIL_USERNAME}"
 
             # Skip creation if the student already has this repo
