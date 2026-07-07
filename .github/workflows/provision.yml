@@ -129,7 +129,7 @@ jobs:
             gh api \
               --method POST \
               -H "Accept: application/vnd.github+json" \
-              /repos/$ORG/$TEMPLATE_REPO/generate \
+              /repos/FullSailGameStudies/$TEMPLATE_REPO/generate \
               -f owner="$ORG" \
               -f name="$NEW_REPO_NAME" \
               -F private=true
